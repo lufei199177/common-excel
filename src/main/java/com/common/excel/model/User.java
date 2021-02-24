@@ -19,25 +19,25 @@ public class User {
     private String name;
 
     @Excel(seq = 2,name = "身高",width = 80)
-    private short height;
+    private Short height;
 
     @Excel(seq = 3,name = "年龄",width = 80)
-    private int age;
+    private Integer age;
 
     @Excel(seq = 4,name = "长度",width = 80)
-    private long length;
+    private Long length;
 
     @Excel(seq = 5,name = "税率",width = 80)
-    private float tax;
+    private Float tax;
 
     @Excel(seq = 6,name = "金额",width = 80)
-    private double amount;
+    private Double amount;
 
     @Excel(seq = 7,name = "支付",width = 80)
     private BigDecimal pay;
 
     @Excel(seq = 8,name = "flag",width = 80)
-    private boolean flag;
+    private Boolean flag;
 
     @Excel(seq = 9,name = "日期",width = 120)
     private Date date;

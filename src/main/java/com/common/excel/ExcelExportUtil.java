@@ -2,16 +2,15 @@ package com.common.excel;
 
 import com.common.excel.model.ExcelParseModel;
 import com.common.excel.util.CommonUtil;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,7 +48,14 @@ public class ExcelExportUtil {
                 Object value=field.get(t);
                 if(value!=null){
                     Cell cell=row.createCell(j);
-                    cell.setCellValue(String.valueOf(value));
+                    if("java.util.Date".equals(field.getType().getName())){
+                        CellStyle cellStyle = workbook.createCellStyle();
+                        cellStyle.setDataFormat(HSSFDataFormat.getBuiltinFormat(model.getExcel().dateFormat()));
+                        cell.setCellStyle(cellStyle);
+                        cell.setCellValue((Date)value);
+                    }else{
+                        cell.setCellValue(String.valueOf(value));
+                    }
                 }
             }
         }

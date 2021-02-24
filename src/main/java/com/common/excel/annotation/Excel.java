@@ -19,4 +19,6 @@ public @interface Excel {
     String name();
 
     boolean required() default false;
+
+    String dateFormat() default "yyyy/MM/dd";
 }
