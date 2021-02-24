@@ -1,6 +1,7 @@
 package com.common.excel.model;
 
 import com.common.excel.annotation.Excel;
+import org.apache.poi.ss.usermodel.Cell;
 
 import java.lang.reflect.Field;
 
@@ -14,6 +15,8 @@ public class ExcelParseModel {
     private Excel excel;
 
     private Field field;
+
+    private Cell cell;
 
     public Excel getExcel() {
         return excel;
@@ -29,5 +32,13 @@ public class ExcelParseModel {
 
     public void setField(Field field) {
         this.field = field;
+    }
+
+    public Cell getCell() {
+        return cell;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
     }
 }

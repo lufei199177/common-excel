@@ -2,11 +2,9 @@ package com.common.excel;
 
 import com.common.excel.annotation.Excel;
 import com.common.excel.model.ExcelParseModel;
+import com.common.excel.util.DataTypeUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.InputStream;
@@ -60,12 +58,16 @@ public class ExcelUtil {
             list.add(t);
             for(int j=0;j<excelParseModels.size();j++){
                 Cell cell=row.getCell(j);
-                String value=cell.getStringCellValue();
-                Field field=excelParseModels.get(j).getField();
-                Class<?> c=field.getType();
+                ExcelParseModel excelParseModel=excelParseModels.get(j);
+                excelParseModel.setCell(cell);
+                Field field=excelParseModel.getField();
 
-                field.setAccessible(true);
-                field.set(t,value);
+                Object value= DataTypeUtil.setValue(excelParseModel);
+                if(value!=null){
+                    field.setAccessible(true);
+                    field.set(t,value);
+                }
+
             }
         }
         return list;

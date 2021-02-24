@@ -19,13 +19,13 @@ public class User {
     private String name;
 
     @Excel(columnIndex = 2,headName = "身高",required = true)
-    private short height;
+    private Short height;
 
     @Excel(columnIndex = 3,headName = "年龄",required = true)
     private Integer age;
 
     @Excel(columnIndex = 4,headName = "长度",required = true)
-    private Long aLong;
+    private Long length;
 
     @Excel(columnIndex = 5,headName = "税率",required = true)
     private Float tax;
@@ -36,14 +36,14 @@ public class User {
     @Excel(columnIndex = 7,headName = "支付",required = true)
     private BigDecimal pay;
 
-    @Excel(columnIndex = 8,headName = "是/否",required = true)
-    private YesOrNoEnum yesOrNoEnum;
-
-    @Excel(columnIndex = 9,headName = "flag",required = true)
+    @Excel(columnIndex = 8,headName = "flag",required = true)
     private Boolean flag;
 
-    @Excel(columnIndex = 10,headName = "日期",required = true)
+    @Excel(columnIndex = 9,headName = "日期",required = true)
     private Date date;
+
+    @Excel(columnIndex = 10,headName = "级别")
+    private char level;
 
     public String getId() {
         return id;
@@ -77,12 +77,20 @@ public class User {
         this.age = age;
     }
 
-    public Long getaLong() {
-        return aLong;
+    public Long getLength() {
+        return length;
     }
 
-    public void setaLong(Long aLong) {
-        this.aLong = aLong;
+    public void setLength(Long length) {
+        this.length = length;
+    }
+
+    public char getLevel() {
+        return level;
+    }
+
+    public void setLevel(char level) {
+        this.level = level;
     }
 
     public Float getTax() {
@@ -109,14 +117,6 @@ public class User {
         this.pay = pay;
     }
 
-    public YesOrNoEnum getYesOrNoEnum() {
-        return yesOrNoEnum;
-    }
-
-    public void setYesOrNoEnum(YesOrNoEnum yesOrNoEnum) {
-        this.yesOrNoEnum = yesOrNoEnum;
-    }
-
     public Boolean getFlag() {
         return flag;
     }
@@ -140,13 +140,13 @@ public class User {
                 ", name='" + name + '\'' +
                 ", height=" + height +
                 ", age=" + age +
-                ", aLong=" + aLong +
+                ", length=" + length +
                 ", tax=" + tax +
                 ", amount=" + amount +
                 ", pay=" + pay +
-                ", yesOrNoEnum=" + yesOrNoEnum +
                 ", flag=" + flag +
                 ", date=" + date +
+                ", level=" + level +
                 '}';
     }
 }

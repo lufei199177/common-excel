@@ -4,6 +4,7 @@ import com.common.excel.model.User;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -14,8 +15,13 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) throws Exception{
-        File file=new File("D:\\test\\test.xlsx");
+        /*File file=new File("D:\\test\\test.xlsx");
         List<User> list=ExcelUtil.importXLSXExcel(new FileInputStream(file),User.class);
-        System.out.println(list);
+        System.out.println(list);*/
+
+        Field[] fields=User.class.getDeclaredFields();
+        for(Field field:fields){
+            System.out.println(field.getType().getName());
+        }
     }
 }

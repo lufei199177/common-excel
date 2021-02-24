@@ -18,5 +18,5 @@ public @interface Excel {
 
     String headName();
 
-    boolean required();
+    boolean required() default false;
 }
