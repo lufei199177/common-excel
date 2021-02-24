@@ -4,7 +4,8 @@ import com.common.excel.model.User;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.lang.reflect.Field;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -15,13 +16,13 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) throws Exception{
-        /*File file=new File("D:\\test\\test.xlsx");
-        List<User> list=ExcelUtil.importXLSXExcel(new FileInputStream(file),User.class);
-        System.out.println(list);*/
+        long start=System.currentTimeMillis();
+        File file=new File("D:\\test\\test.xlsx");
+        List<User> list= ExcelImportUtil.importXLSXExcel(new FileInputStream(file),User.class);
 
-        Field[] fields=User.class.getDeclaredFields();
-        for(Field field:fields){
-            System.out.println(field.getType().getName());
-        }
+        OutputStream os=new FileOutputStream("D:\\test\\test0.xls");
+        ExcelExportUtil.exportXLSXExcel(os,list,User.class);
+        long end=System.currentTimeMillis();
+        System.out.println("耗时："+(end-start));
     }
 }

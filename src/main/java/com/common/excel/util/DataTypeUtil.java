@@ -25,11 +25,16 @@ public class DataTypeUtil {
         map.put("java.lang.Short", DataTypeUtil::handleShort);
         map.put("short", DataTypeUtil::handleShort);
         map.put("java.lang.Integer", DataTypeUtil::handleInteger);
+        map.put("int", DataTypeUtil::handleInteger);
         map.put("java.lang.Long", DataTypeUtil::handleLong);
+        map.put("long", DataTypeUtil::handleLong);
         map.put("java.lang.Float", DataTypeUtil::handleFloat);
+        map.put("float", DataTypeUtil::handleFloat);
         map.put("java.lang.Double", DataTypeUtil::handleDouble);
+        map.put("double", DataTypeUtil::handleDouble);
         map.put("java.math.BigDecimal", DataTypeUtil::handleBigDecimal);
         map.put("java.lang.Boolean", DataTypeUtil::handleBoolean);
+        map.put("boolean", DataTypeUtil::handleBoolean);
         map.put("java.util.Date", DataTypeUtil::handleDate);
     }
 
@@ -44,7 +49,7 @@ public class DataTypeUtil {
 
         String value=null;
         if(cellType==CellType.STRING){
-            value=model.getCell().getStringCellValue();
+            value=model.getCell().getStringCellValue().trim();
         }else if(cellType==CellType.NUMERIC){
             value=String.valueOf(model.getCell().getNumericCellValue());
         }
@@ -55,16 +60,15 @@ public class DataTypeUtil {
     private static Object handleChar(ExcelParseModel model){
         CellType cellType=model.getCell().getCellTypeEnum();
 
-        char value = 0;
         if(cellType==CellType.STRING){
             String v=model.getCell().getStringCellValue();
-            value=v.charAt(0);
+            return v.charAt(0);
         }else if(cellType==CellType.NUMERIC){
             int v=(int)model.getCell().getNumericCellValue();
-            value= (char) v;
+            return (char) v;
         }
 
-        return value;
+        return null;
     }
 
     private static Object handleShort(ExcelParseModel model){
@@ -74,9 +78,7 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=(short) v;
-        }/*else if(cellType==CellType.STRING){
-            value=Float.parseFloat(model.getCell().getStringCellValue());
-        }*/
+        }
 
         return value;
     }
@@ -88,9 +90,7 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=(int) v;
-        }/*else if(cellType==CellType.STRING){
-            value=Float.parseFloat(model.getCell().getStringCellValue());
-        }*/
+        }
 
         return value;
     }
@@ -102,9 +102,7 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=(long) v;
-        }/*else if(cellType==CellType.STRING){
-            value=Float.parseFloat(model.getCell().getStringCellValue());
-        }*/
+        }
 
         return value;
     }
@@ -116,9 +114,7 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=(float) v;
-        }/*else if(cellType==CellType.STRING){
-            value=Float.parseFloat(model.getCell().getStringCellValue());
-        }*/
+        }
         
         return value;
     }
@@ -129,9 +125,7 @@ public class DataTypeUtil {
         Double value=null;
         if(cellType==CellType.NUMERIC){
             value=model.getCell().getNumericCellValue();
-        }/*else if(cellType==CellType.STRING){
-            value=Double.parseDouble(model.getCell().getStringCellValue());
-        }*/
+        }
 
         return value;
     }
@@ -143,9 +137,7 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=new BigDecimal(v);
-        }/*else if(cellType==CellType.STRING){
-            value=new BigDecimal(model.getCell().getStringCellValue());
-        }*/
+        }
 
         return value;
     }
@@ -167,7 +159,6 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             date=model.getCell().getDateCellValue();
         }
-
         return date;
     }
 }

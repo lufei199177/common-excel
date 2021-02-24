@@ -12,37 +12,37 @@ import java.util.Date;
  */
 public class User {
 
-    @Excel(columnIndex = 0,headName = "id",required = true)
+    @Excel(seq = 0,name = "id",width = 80,required = true)
     private String id;
 
-    @Excel(columnIndex = 1,headName = "姓名",required = true)
+    @Excel(seq = 1,name = "姓名",width = 100,required = true)
     private String name;
 
-    @Excel(columnIndex = 2,headName = "身高",required = true)
-    private Short height;
+    @Excel(seq = 2,name = "身高",width = 80)
+    private short height;
 
-    @Excel(columnIndex = 3,headName = "年龄",required = true)
-    private Integer age;
+    @Excel(seq = 3,name = "年龄",width = 80)
+    private int age;
 
-    @Excel(columnIndex = 4,headName = "长度",required = true)
-    private Long length;
+    @Excel(seq = 4,name = "长度",width = 80)
+    private long length;
 
-    @Excel(columnIndex = 5,headName = "税率",required = true)
-    private Float tax;
+    @Excel(seq = 5,name = "税率",width = 80)
+    private float tax;
 
-    @Excel(columnIndex = 6,headName = "金额",required = true)
-    private Double amount;
+    @Excel(seq = 6,name = "金额",width = 80)
+    private double amount;
 
-    @Excel(columnIndex = 7,headName = "支付",required = true)
+    @Excel(seq = 7,name = "支付",width = 80)
     private BigDecimal pay;
 
-    @Excel(columnIndex = 8,headName = "flag",required = true)
-    private Boolean flag;
+    @Excel(seq = 8,name = "flag",width = 80)
+    private boolean flag;
 
-    @Excel(columnIndex = 9,headName = "日期",required = true)
+    @Excel(seq = 9,name = "日期",width = 120)
     private Date date;
 
-    @Excel(columnIndex = 10,headName = "级别")
+    @Excel(seq = 10,name = "级别",width = 60)
     private char level;
 
     public String getId() {

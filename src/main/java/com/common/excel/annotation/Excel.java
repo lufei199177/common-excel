@@ -12,11 +12,11 @@ import java.lang.annotation.*;
 @Documented
 public @interface Excel {
 
-    int columnIndex();
+    int seq();
 
-    //String propName();
+    int width() default 120;
 
-    String headName();
+    String name();
 
     boolean required() default false;
 }
