@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.CellType;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class DataTypeUtil {
         map.put("java.util.Date", DataTypeUtil::handleDate);
     }
 
-    public static Object setValue(ExcelParseModel model) throws IllegalAccessException {
+    public static Object setValue(ExcelParseModel model){
         Field field=model.getField();
         Function<ExcelParseModel,Object> function=map.get(field.getType().getName());
         return function.apply(model);
@@ -61,7 +62,7 @@ public class DataTypeUtil {
         CellType cellType=model.getCell().getCellTypeEnum();
 
         if(cellType==CellType.STRING){
-            String v=model.getCell().getStringCellValue();
+            String v=model.getCell().getStringCellValue().trim();
             return v.charAt(0);
         }else if(cellType==CellType.NUMERIC){
             int v=(int)model.getCell().getNumericCellValue();
@@ -158,6 +159,15 @@ public class DataTypeUtil {
         Date date=null;
         if(cellType==CellType.NUMERIC){
             date=model.getCell().getDateCellValue();
+        }else if(cellType==CellType.STRING){
+            String v=model.getCell().getStringCellValue().trim();
+            SimpleDateFormat format=new SimpleDateFormat(model.getExcel().dateFormat());
+            try{
+                date=format.parse(v);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
         return date;
     }

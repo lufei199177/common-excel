@@ -3,15 +3,12 @@ package com.common.excel;
 import com.common.excel.model.ExcelParseModel;
 import com.common.excel.util.CommonUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +38,7 @@ public class ExcelExportUtil {
         //创建标题头
         createHead(sheet,excelParseModels);
         //赋值
+        Map<Integer,CellStyle> cellStyleMap=new HashMap<>();
         for(int i=0;i<list.size();i++){
             T t=list.get(i);
             Row row=sheet.createRow(i+1);
@@ -62,8 +60,15 @@ public class ExcelExportUtil {
                             cell.setCellValue((boolean)value);
                             break;
                         case 3:
-                            SimpleDateFormat format=new SimpleDateFormat(model.getExcel().dateFormat());
-                            cell.setCellValue(format.format(value));
+                            CellStyle cellStyle = cellStyleMap.get(j);
+                            if(cellStyle==null){
+                                cellStyle=workbook.createCellStyle();
+                                DataFormat format= workbook.createDataFormat();
+                                cellStyle.setDataFormat(format.getFormat(model.getExcel().dateFormat()));
+                                cellStyleMap.put(j,cellStyle);
+                            }
+                            cell.setCellStyle(cellStyle);
+                            cell.setCellValue((Date)value);
                             break;
                     }
                 }

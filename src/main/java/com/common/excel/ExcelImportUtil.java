@@ -55,7 +55,7 @@ public class ExcelImportUtil {
                     field.setAccessible(true);
                     field.set(t,value);
                 }else if(excelParseModel.getExcel().required()){
-                    throw new Exception(excelParseModel.getExcel().name()+"存在空值");
+                    throw new Exception("第"+i+"行"+excelParseModel.getExcel().name()+"为空");
                 }
             }
         }

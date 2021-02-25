@@ -20,6 +20,8 @@ public class Test {
         File file=new File("D:\\test\\test.xlsx");
         List<User> list= ExcelImportUtil.importXLSXExcel(new FileInputStream(file),User.class);
 
+        //System.out.println(list);
+
         OutputStream os=new FileOutputStream("D:\\test\\test0.xlsx");
         ExcelExportUtil.exportXLSXExcel(os,list,User.class);
         long end=System.currentTimeMillis();

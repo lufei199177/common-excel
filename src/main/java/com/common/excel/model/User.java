@@ -39,7 +39,7 @@ public class User {
     @Excel(seq = 8,name = "flag",width = 80)
     private Boolean flag;
 
-    @Excel(seq = 9,name = "日期",width = 120)
+    @Excel(seq = 9,name = "日期",width = 120,dateFormat = "yyyy-MM-dd")
     private Date date;
 
     @Excel(seq = 10,name = "级别",width = 60)
