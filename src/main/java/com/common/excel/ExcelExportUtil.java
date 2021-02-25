@@ -2,16 +2,19 @@ package com.common.excel;
 
 import com.common.excel.model.ExcelParseModel;
 import com.common.excel.util.CommonUtil;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: lufei
@@ -48,13 +51,20 @@ public class ExcelExportUtil {
                 Object value=field.get(t);
                 if(value!=null){
                     Cell cell=row.createCell(j);
-                    if("java.util.Date".equals(field.getType().getName())){
-                        CellStyle cellStyle = workbook.createCellStyle();
-                        cellStyle.setDataFormat(HSSFDataFormat.getBuiltinFormat(model.getExcel().dateFormat()));
-                        cell.setCellStyle(cellStyle);
-                        cell.setCellValue((Date)value);
-                    }else{
-                        cell.setCellValue(String.valueOf(value));
+                    switch (map.get(field.getType().getName())){
+                        case 0:
+                            cell.setCellValue(String.valueOf(value));
+                            break;
+                        case 1:
+                            cell.setCellValue(Double.parseDouble(String.valueOf(value)));
+                            break;
+                        case 2:
+                            cell.setCellValue((boolean)value);
+                            break;
+                        case 3:
+                            SimpleDateFormat format=new SimpleDateFormat(model.getExcel().dateFormat());
+                            cell.setCellValue(format.format(value));
+                            break;
                     }
                 }
             }
@@ -69,5 +79,26 @@ public class ExcelExportUtil {
             cell.setCellValue(excelParseModel.getExcel().name());
             sheet.setColumnWidth(i,excelParseModel.getExcel().width()*30);
         }
+    }
+
+    private static final Map<String, Integer> map=new HashMap<>();
+
+    static {
+        map.put("java.lang.String", 0);
+        map.put("char", 0);
+        map.put("java.lang.Short", 1);
+        map.put("short", 1);
+        map.put("java.lang.Integer", 1);
+        map.put("int", 1);
+        map.put("java.lang.Long", 1);
+        map.put("long", 1);
+        map.put("java.lang.Float", 1);
+        map.put("float", 1);
+        map.put("java.lang.Double", 1);
+        map.put("double", 1);
+        map.put("java.math.BigDecimal", 1);
+        map.put("java.lang.Boolean", 2);
+        map.put("boolean", 2);
+        map.put("java.util.Date", 3);
     }
 }
