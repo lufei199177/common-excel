@@ -4,10 +4,13 @@ import com.common.excel.model.ExcelParseModel;
 import com.common.excel.util.CommonUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +34,28 @@ public class ExcelExportUtil {
         createExcel(workbook,list,clazz);
         workbook.write(outputStream);
     }
+
+    /*public static <T>void exportExcel(HttpServletResponse response,List<T> data,Class<T> clazz,String fileName) throws Exception {
+        OutputStream os=null;
+        try {
+            // 设置输出流信息
+            os = response.getOutputStream();
+            response.reset();// 清空输出流
+            response.setHeader("Content-disposition", "attachment; filename=" +
+                    URLEncoder.encode(fileName, StandardCharsets.UTF_8));
+            response.setContentType("application/octet-stream;charset=UTF-8");
+
+            // 调用封装好的导出方法
+            if(fileName.lastIndexOf(".xls")>0){
+                exportXLSExcel(os,data,clazz);
+            }else{
+                exportXLSXExcel(os,data,clazz);
+            }
+            os.flush();
+        }finally {
+            IOUtils.closeQuietly(os);
+        }
+    }*/
 
     public static <T>void createExcel(Workbook workbook, List<T> list,Class<T> clazz) throws IllegalAccessException {
         List<ExcelParseModel> excelParseModels= CommonUtil.parseClass(clazz);

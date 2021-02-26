@@ -18,7 +18,7 @@ public class Test {
     public static void main(String[] args) throws Exception{
         long start=System.currentTimeMillis();
         File file=new File("D:\\test\\test.xlsx");
-        List<User> list= ExcelImportUtil.importXLSXExcel(new FileInputStream(file),User.class);
+        List<User> list= ExcelImportUtil.importExcel(new FileInputStream(file),User.class);
 
         //System.out.println(list);
 

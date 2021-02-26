@@ -4,10 +4,7 @@ import com.common.excel.model.ExcelParseModel;
 import com.common.excel.util.CommonUtil;
 import com.common.excel.util.DataTypeUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.InputStream;
@@ -22,13 +19,8 @@ import java.util.List;
  */
 public class ExcelImportUtil {
 
-    public static <T>List<T> importXLSExcel(InputStream is,Class<T> clazz) throws Exception {
-        Workbook workbook=new HSSFWorkbook(is);
-        return parseExcel(workbook,clazz);
-    }
-
-    public static <T>List<T> importXLSXExcel(InputStream is,Class<T> clazz) throws Exception {
-        Workbook workbook=new XSSFWorkbook(is);
+    public static <T>List<T> importExcel(InputStream is, Class<T> clazz) throws Exception {
+        Workbook workbook= WorkbookFactory.create(is);
         return parseExcel(workbook,clazz);
     }
 
