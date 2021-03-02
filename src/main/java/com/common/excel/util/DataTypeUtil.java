@@ -79,6 +79,11 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=(short) v;
+        }else if(cellType==CellType.STRING){
+            String s=model.getCell().getStringCellValue().trim();
+            if(!s.equals("")){
+                value=Short.parseShort(s);
+            }
         }
 
         return value;
@@ -91,6 +96,12 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=(int) v;
+        }else if(cellType==CellType.STRING){
+            String s=model.getCell().getStringCellValue().trim();
+            if(!s.equals("")){
+                value=Integer.parseInt(s);
+            }
+
         }
 
         return value;
@@ -103,6 +114,11 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=(long) v;
+        }else if(cellType==CellType.STRING){
+            String s=model.getCell().getStringCellValue().trim();
+            if(!s.equals("")){
+                value=Long.parseLong(s);
+            }
         }
 
         return value;
@@ -110,13 +126,18 @@ public class DataTypeUtil {
 
     private static Object handleFloat(ExcelParseModel model){
         CellType cellType=model.getCell().getCellTypeEnum();
-        
+
         Float value=null;
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=(float) v;
+        }else if(cellType==CellType.STRING){
+            String s=model.getCell().getStringCellValue().trim();
+            if(!s.equals("")){
+                value=Float.parseFloat(s);
+            }
         }
-        
+
         return value;
     }
 
@@ -126,6 +147,11 @@ public class DataTypeUtil {
         Double value=null;
         if(cellType==CellType.NUMERIC){
             value=model.getCell().getNumericCellValue();
+        }else if(cellType==CellType.STRING){
+            String s=model.getCell().getStringCellValue().trim();
+            if(!s.equals("")){
+                value=Double.parseDouble(s);
+            }
         }
 
         return value;
@@ -138,6 +164,11 @@ public class DataTypeUtil {
         if(cellType==CellType.NUMERIC){
             double v=model.getCell().getNumericCellValue();
             value=new BigDecimal(v);
+        }else if(cellType==CellType.STRING){
+            String s=model.getCell().getStringCellValue().trim();
+            if(!s.equals("")){
+                value=new BigDecimal(s);
+            }
         }
 
         return value;
@@ -145,10 +176,15 @@ public class DataTypeUtil {
 
     private static Object handleBoolean(ExcelParseModel model){
         CellType cellType=model.getCell().getCellTypeEnum();
-        
+
         Boolean value=null;
         if(cellType==CellType.BOOLEAN){
             value=model.getCell().getBooleanCellValue();
+        }else if(cellType==CellType.STRING){
+            String s=model.getCell().getStringCellValue().trim();
+            if(!s.equals("")){
+                value=Boolean.valueOf(s);
+            }
         }
         return value;
     }
