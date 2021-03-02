@@ -9,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +41,13 @@ public class ExcelImportUtil {
                 }
                 ExcelParseModel excelParseModel=excelParseModels.get(j);
                 excelParseModel.setCell(cell);
-                Field field=excelParseModel.getField();
 
                 Object value= DataTypeUtil.setValue(excelParseModel);
                 if(value!=null){
-                    field.setAccessible(true);
-                    field.set(t,value);
+                    /*field.setAccessible(true);
+                    field.set(t,value);*/
+                    Method setMethod=excelParseModel.getSetMethod();
+                    setMethod.invoke(t,value);
                 }else if(excelParseModel.getExcel().required()){
                     throw new Exception("第"+i+"行"+excelParseModel.getExcel().name()+"为空");
                 }

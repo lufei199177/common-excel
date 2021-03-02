@@ -4,6 +4,7 @@ import com.common.excel.annotation.Excel;
 import org.apache.poi.ss.usermodel.Cell;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * @author: lufei
@@ -17,6 +18,8 @@ public class ExcelParseModel {
     private Field field;
 
     private Cell cell;
+
+    private Method setMethod;
 
     public Excel getExcel() {
         return excel;
@@ -40,5 +43,13 @@ public class ExcelParseModel {
 
     public void setCell(Cell cell) {
         this.cell = cell;
+    }
+
+    public Method getSetMethod() {
+        return setMethod;
+    }
+
+    public void setSetMethod(Method setMethod) {
+        this.setMethod = setMethod;
     }
 }

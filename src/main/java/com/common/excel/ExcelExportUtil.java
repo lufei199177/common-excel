@@ -57,7 +57,7 @@ public class ExcelExportUtil {
         }
     }*/
 
-    public static <T>void createExcel(Workbook workbook, List<T> list,Class<T> clazz) throws IllegalAccessException {
+    public static <T>void createExcel(Workbook workbook, List<T> list,Class<T> clazz) throws IllegalAccessException, NoSuchMethodException {
         List<ExcelParseModel> excelParseModels= CommonUtil.parseClass(clazz);
         Sheet sheet=workbook.createSheet();
         //创建标题头
