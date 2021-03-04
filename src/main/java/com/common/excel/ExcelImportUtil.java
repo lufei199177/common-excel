@@ -81,7 +81,14 @@ public class ExcelImportUtil {
 
                 excelParseModel.setCell(cell);
 
-                Object value= DataTypeUtil.setValue(excelParseModel);
+                Object value;
+                try{
+                    value= DataTypeUtil.setValue(excelParseModel);
+                }catch (Exception e){
+                    sb.append(excelParseModel.getExcel().name()).append("数据格式不符合要求");
+                    continue;
+                }
+
                 if(value!=null){
                     Method setMethod=excelParseModel.getSetMethod();
                     setMethod.invoke(t,value);
