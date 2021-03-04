@@ -32,6 +32,9 @@ public class ExcelImportUtil {
 
         for(int i=1;i<=sheet.getLastRowNum();i++){
             Row row=sheet.getRow(i);
+            if(row==null){
+                continue;
+            }
             T t=clazz.getDeclaredConstructor().newInstance();
             list.add(t);
             for(int j=0;j<excelParseModels.size();j++){
